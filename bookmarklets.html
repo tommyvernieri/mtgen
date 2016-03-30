@@ -1,0 +1,33 @@
+<html
+<head>
+<title>MTGEN Bookmarklets</title>
+</head>
+<body>
+<h1>Multiple Set Pauper Sealed Pool Generator</h1>
+<p>You can use these bookmarklets to generate sealed pools using commons from multiple sets across multiple blocks.</p>
+
+<ul>
+<li>Setup
+  <ul><li>Drag each bookmarklet into your bookmarks bar.</li></ul>
+</li>
+<li>Use
+<ul>
+<li>Browse to a [MTG Gen page](http://mtgen.net/v14/).</li>
+<li>Click the `MTGEN Pauper Sealed` bookmarklet</li>
+<li>Enter your set abbreviations, and click OK.</li>
+<li>Copy and paste the data from the second prompt into a .txt file.</li>
+<li>Import the text file into MTGO.</li>
+</ul>
+</li>
+<li>Optional
+<ul><li>If you're going to generate several pools for the same sets, use the Presets bookmarklet.</li></ul>
+</li>
+</ul>
+
+<h2>Bookmarklets</h2>
+<ul>
+<li><a href="javascript:(function(){javascript:(function(){if(typeof UnifiedSealedGenerator==='undefined'){(function(UnifiedSealedGenerator,$,undefined){var basicLandTitles=['Plains','Island','Swamp','Mountain','Forest'];var options={};if(UnifiedSealedGenerator.packInputPrompt===undefined){UnifiedSealedGenerator.packInputPrompt='';}UnifiedSealedGenerator.init=function(){mtgGen.on('ready',function(){var cardPool=$.map([].concat.apply([],mtgGen.generateCardSetsFromPacks(options.packs)),function(element,index){var include=(element.rarity==='c'&&!!element.usableForDeckBuilding&&-1===basicLandTitles.indexOf(element.title));return(include?'1 '+element.title:undefined);}).join('\n');prompt('Generated Pool - Copy to Clipboard with Ctrl + C',cardPool);});};UnifiedSealedGenerator.generateSealedPool=function(){var packInput=prompt('Enter the set abbreviations for each pack (separate each pack with a comma and space).',UnifiedSealedGenerator.packInputPrompt);if(packInput!==null){var packSets=packInput.split(', ');options.cardFiles=['/exp/cardsMain.json'];options.packFiles=[];options.packs=[];var i,currentSet;for(i=0;i<packSets.length;i++){currentSet=packSets[i];options.cardFiles.push('/'+currentSet+'/cardsMain.json');options.cardFiles.push('/'+currentSet+'/cardsOther.json');options.cardFiles.push('/'+currentSet+'/cardsToken.json');options.packFiles.push('/'+currentSet+'/packs.json');options.packs.push({count:1,packName:currentSet+'-standard'});}mtgGen.run({setCode:'ogw',setFile:'/sets.json',cardFiles:options.cardFiles,packFiles:options.packFiles,productFile:'/ogw/products.json',startProductName:'ogw-prerelease',setCardCount:'184',contentElem:'main'});}};}(window.UnifiedSealedGenerator=window.UnifiedSealedGenerator||{},jQuery));UnifiedSealedGenerator.init();}UnifiedSealedGenerator.generateSealedPool();}());})();">MTGEN Pauper Sealed</a></li>
+<li><a href="javascript:(function(){javascript:(function(UnifiedSealedGenerator,$,undefined){if(UnifiedSealedGenerator.packInputPrompt===undefined){UnifiedSealedGenerator.packInputPrompt='';}var packInput=prompt('Enter new default set abbreviations for each pack (separate each pack with a comma and space).',UnifiedSealedGenerator.packInputPrompt);if(packInput!==null){UnifiedSealedGenerator.packInputPrompt=packInput;}}(window.UnifiedSealedGenerator=window.UnifiedSealedGenerator||{},jQuery));})();">MTGEN Presets</a></li>
+</ul>
+</body>
+</html>
